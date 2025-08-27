@@ -27,6 +27,49 @@ services:
       - key: CORS_ALLOWED_ORIGINS
         value: https://organ-donation-frontend.onrender.com
       - key: CSRF_TRUSTED_ORIGINS
+        value: https://organ-donation-backend.onrender.com,https://organ-donation-frontend.onrender.com
+      - key: SECURE_SSL_REDIRECT
+        value: true
+      - key: SESSION_COOKIE_SECURE
+        value: true
+      - key: CSRF_COOKIE_SECURE
+        value: true
+    postDeployCommand: python manage.py migrate --noinput && python manage.py collectstatic --noinput
+  - type: redis
+    name: organ-donation-redis
+    ipAllowList: []
+databases:
+  - name: organ-donation-postgres
+    plan: free
+services:
+  - type: web
+    name: organ-donation-backend
+    env: python
+    rootDir: .
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: daphne -b 0.0.0.0 -p $PORT backend.asgi:application
+    plan: free
+    healthCheckPath: /admin/login/
+    autoDeploy: true
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: false
+      - key: ALLOWED_HOSTS
+        value: organ-donation-backend.onrender.com
+      - key: DATABASE_URL
+        fromDatabase:
+          name: organ-donation-postgres
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: organ-donation-redis
+          property: connectionString
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://organ-donation-frontend.onrender.com
+      - key: CSRF_TRUSTED_ORIGINS
         value: https://organ-donation-frontend.onrender.com
     postdeploy:
       - python manage.py migrate --noinput
