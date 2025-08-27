@@ -1,0 +1,221 @@
+.organ-listings-container {
+    padding: 2rem 2rem 2rem 2rem;
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+    background-color: #f8fafc;
+}
+
+.organ-item,
+.request-item {
+    transition: background-color 0.3s ease;
+}
+
+.organ-item.highlighted,
+.request-item.highlighted {
+    background-color: rgba(37, 99, 235, 0.1) !important;
+    animation: highlight-pulse 2s ease-in-out;
+}
+
+@keyframes highlight-pulse {
+    0% {
+        background-color: rgba(37, 99, 235, 0.1);
+    }
+    50% {
+        background-color: rgba(37, 99, 235, 0.2);
+    }
+    100% {
+        background-color: rgba(37, 99, 235, 0.1);
+    }
+}
+
+/* Override table stripe styles when highlighted */
+.table-striped > tbody > tr.highlighted:nth-of-type(odd),
+.table-striped > tbody > tr.highlighted:nth-of-type(even) {
+    background-color: rgba(37, 99, 235, 0.1) !important;
+}
+
+.container-fluid {
+    padding: 2rem;
+}
+
+/* Search bar styling */
+.form-control {
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e2e8f0;
+    flex: 1;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #3b82f6;
+}
+
+/* Table styling */
+.table-responsive {
+    margin: 0;
+    width: 100%;
+}
+
+.table {
+    margin-bottom: 0;
+    background-color: white;
+}
+
+.table th {
+    text-transform: uppercase;
+    font-size: 0.688rem;
+    font-weight: 600;
+    color: #64748b;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
+}
+
+.table td {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: #1e293b;
+}
+
+.table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Status badges */
+.status-badge {
+    padding: 0.25rem 0.5rem;
+    font-weight: 500;
+    font-size: 0.75rem;
+    border-radius: 9999px;
+    white-space: nowrap;
+}
+
+.status-available {
+    background-color: #dcfce7 !important;
+    color: #166534 !important;
+}
+
+.status-pending {
+    background-color: #fef9c3 !important;
+    color: #854d0e !important;
+}
+
+.status-matched {
+    background-color: #dbeafe !important;
+    color: #1e40af !important;
+}
+
+/* Action buttons */
+.btn-link {
+    color: #64748b;
+    padding: 0.25rem !important;
+    font-size: 1rem;
+    text-decoration: none;
+    min-width: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-link:hover {
+    color: #3b82f6;
+}
+
+.btn-link.text-danger:hover {
+    color: #dc2626 !important;
+}
+
+/* Card styling */
+.card {
+    border: none;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    border-radius: 0.5rem;
+    margin: 0;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+/* Typography */
+h2 {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+h5 {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.text-muted {
+    color: #64748b !important;
+}
+
+/* Blood type text */
+small.text-muted {
+    font-size: 0.875rem;
+}
+
+/* Tip text */
+.tip-text {
+    padding-right: 1rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.813rem;
+}
+
+/* New Listing button */
+.btn-primary {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-primary:hover {
+    background-color: #2563eb;
+    border-color: #2563eb;
+}
+
+.btn-outline-primary {
+    border-color: #e2e8f0;
+    color: #64748b;
+    height: 40px;
+    padding: 0.5rem 1rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-outline-primary:hover {
+    background-color: #f8fafc;
+    border-color: #e2e8f0;
+    color: #3b82f6;
+}
+
+/* Layout adjustments */
+@media (min-width: 768px) {
+    .organ-listings-container {
+        padding: 1rem;
+    }
+}
+
+/* Header section adjustments */
+.organ-listings-container > .d-flex {
+    padding-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Search bar container adjustment */
+.organ-listings-container .mb-4 {
+    margin-bottom: 1rem !important;
+    padding-right: 1rem;
+} 

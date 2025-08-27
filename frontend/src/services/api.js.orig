@@ -1,0 +1,112 @@
+import axios from 'axios';
+
+const API_URL = 'http://localhost:8000'; // Base URL without /api
+
+const api = axios.create({
+    baseURL: API_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    // Prevent automatic protocol upgrade
+    maxRedirects: 0,
+    // Force HTTP
+    validateStatus: function (status) {
+        return status >= 200 && status < 300; // default
+    }
+});
+
+// Add request interceptor to handle token
+api.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem('access_token');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
+// Add response interceptor to handle token refresh
+api.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+        const originalRequest = error.config;
+
+        // If error is 401 and we haven't tried to refresh the token yet
+        if (error.response?.status === 401 && !originalRequest._retry) {
+            originalRequest._retry = true;
+
+            try {
+                const refreshToken = localStorage.getItem('refresh_token');
+                if (refreshToken) {
+                    const response = await axios.post(`${API_URL}/api/accounts/token/refresh/`, {
+                        refresh: refreshToken
+                    });
+
+                    if (response.data.access) {
+                        localStorage.setItem('access_token', response.data.access);
+                        originalRequest.headers.Authorization = `Bearer ${response.data.access}`;
+                        return api(originalRequest);
+                    }
+                }
+            } catch (refreshError) {
+                console.error('Token refresh failed:', refreshError);
+                localStorage.removeItem('access_token');
+                localStorage.removeItem('refresh_token');
+                window.location.href = '/login';
+            }
+        }
+
+        // Handle connection refused errors
+        if (error.code === 'ECONNREFUSED') {
+            console.error('Connection refused. Please check if the backend server is running.');
+            return Promise.reject(new Error('Unable to connect to the server. Please try again later.'));
+        }
+
+        return Promise.reject(error);
+    }
+);
+
+// API endpoints
+export const authAPI = {
+    login: (data) => api.post('/api/accounts/login/', data),
+    register: (data) => api.post('/api/accounts/register/', data),
+    getUserDetails: () => api.get('/api/accounts/user/'),
+};
+
+export const donationsAPI = {
+    getOrgans: (url = '/api/donations/organs/') => api.get(url),
+    createOrgan: (data) => api.post('/api/donations/organs/', data),
+    findMatches: () => api.get('/api/donations/organs/find_matches/'),
+    searchOrgans: (params) => api.get('/api/donations/organs/search/', { params }),
+    requestOrgan: (organId, message) => api.post(`/api/donations/organs/${organId}/request_organ/`, { message }),
+    getDonorInfo: (organId) => api.get(`/api/donations/organs/${organId}/donor_info/`),
+    delete: (id) => api.delete(`/api/donations/organs/${id}/`),
+    getById: (id) => api.get(`/api/donations/organs/${id}/`),
+    markUnavailable: (organId) => api.post(`/api/donations/organs/${organId}/mark_unavailable/`),
+    getMyRequests: () => api.get('/api/donations/requests/'),
+    cancelRequest: (requestId) => api.delete(`/api/donations/requests/${requestId}/`),
+    getNotifications: () => {
+        return api.get('/api/donations/notifications/');
+    },
+    markNotificationAsRead: (notificationId) => {
+        return api.post(`/api/donations/notifications/${notificationId}/mark_as_read/`);
+    },
+    markAllNotificationsAsRead: () => {
+        return api.post('/api/donations/notifications/mark_all_as_read/');
+    },
+};
+
+export const organsAPI = {
+    search: () => api.get('/api/donations/organs/'),
+    create: (data) => api.post('/api/donations/organs/', data),
+    update: (id, data) => api.put(`/api/donations/organs/${id}/`, data),
+    delete: (id) => api.delete(`/api/donations/organs/${id}/`),
+    getById: (id) => api.get(`/api/donations/organs/${id}/`),
+    markUnavailable: (organId) => api.post(`/api/donations/organs/${organId}/mark_unavailable/`)
+};
+
+export default api;

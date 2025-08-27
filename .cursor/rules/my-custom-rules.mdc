@@ -1,0 +1,33 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+👨‍💻 Cursor AI Rules for This Workspace:
+
+1. **Always reference the actual codebase.**
+   - Do not guess or generalize solutions.
+   - Look into relevant files, components, functions, or logic before answering.
+
+2. **Provide the best possible solution** based on the context of the code.
+   - If multiple solutions are possible, choose the most efficient and maintainable one for this project.
+
+3. **Be accurate and concise.**
+   - Avoid vague suggestions or "possible" fixes — apply what actually resolves the issue.
+
+4. **Do not tell me to make updates — make them directly.**
+   - When fixing or improving something, implement the changes in the codebase yourself.
+   - Clearly explain:
+     - What was changed,
+     - Why it was necessary,
+     - How it improves or fixes the issue.
+
+5. **Avoid unnecessary questions.**
+   - Only ask for clarification if absolutely essential to avoid breaking functionality.
+
+6. **Clean up any redundant or conflicting code.**
+   - When fixing an issue, remove or refactor legacy, unused, or contradictory logic to keep the codebase clean.
+
+7. **Preserve working functionality.**
+   - Do not break any existing working features while applying fixes or refactors.
+

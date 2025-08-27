@@ -1,0 +1,79 @@
+.navbar {
+    padding: 0.5rem 1rem;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-size: 1.25rem;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.55) !important;
+    padding: 0.5rem 1rem;
+}
+
+.nav-link:hover {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.nav-link.active {
+    color: #fff !important;
+}
+
+.nav-link.disabled {
+    color: rgba(255, 255, 255, 0.25) !important;
+    pointer-events: none;
+    cursor: default;
+}
+
+.navbar .nav-link {
+    transition: color 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.navbar .btn-outline-light {
+    border-color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.navbar .btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.9);
+}
+
+.navbar .btn-light {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.9);
+}
+
+.navbar .btn-light:hover {
+    background-color: #fff;
+    border-color: #fff;
+}
+
+.navbar .nav-link[to="/dashboard"] {
+    font-weight: 500;
+    position: relative;
+}
+
+.navbar .nav-link[to="/dashboard"]::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: #fff;
+    transition: width 0.3s ease;
+}
+
+.navbar .nav-link[to="/dashboard"]:hover::after {
+    width: 100%;
+} 

@@ -1,0 +1,31 @@
+.suggested-hospitals {
+  padding: 1rem;
+}
+
+.suggested-hospitals h2 {
+  color: #1a365d;
+  margin-bottom: 1.5rem;
+}
+
+.suggested-hospitals .hospital-card {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.suggested-hospitals .hospital-card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.suggested-hospitals .specialty-tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background-color: #ebf8ff;
+  color: #2b6cb0;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  margin: 0.25rem;
+} 

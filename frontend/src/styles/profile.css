@@ -1,0 +1,197 @@
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.profile-container .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.profile-container .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container .form-control,
+.profile-container .form-select {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.profile-container .form-control:focus,
+.profile-container .form-select:focus {
+    background-color: #fff;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+}
+
+.profile-container .form-control:disabled {
+    background-color: #e9ecef;
+    opacity: 0.7;
+}
+
+.profile-container .form-label {
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.profile-container .form-label svg {
+    margin-right: 0.5rem;
+    color: #3498db;
+}
+
+.profile-stats .stat-item {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.profile-stats .stat-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.profile-stats .text-muted {
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.profile-stats .h4 {
+    margin: 0;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.profile-container .btn-primary {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile-container .btn-primary:hover {
+    background: linear-gradient(135deg, #2980b9 0%, #2471a3 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.25);
+}
+
+.profile-container .btn-secondary {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    color: #2c3e50;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile-container .btn-secondary:hover {
+    background: #e9ecef;
+    border-color: #dee2e6;
+    transform: translateY(-2px);
+}
+
+.profile-container .alert {
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: none;
+}
+
+.profile-container .alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.profile-container .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.profile-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.profile-card .card-header {
+    background: transparent;
+    border-bottom: 1px solid #eee;
+    padding: 1.5rem;
+}
+
+.profile-card .card-body {
+    padding: 1.5rem;
+}
+
+.profile-card .form-control,
+.profile-card .form-select {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.profile-card .form-control:focus,
+.profile-card .form-select:focus {
+    background-color: #fff;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+}
+
+.profile-card .form-control:disabled {
+    background-color: #e9ecef;
+    opacity: 0.7;
+}
+
+.profile-card textarea.form-control {
+    min-height: 120px;
+}
+
+.profile-card .form-label {
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.profile-card .btn {
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile-card .btn:hover {
+    transform: translateY(-2px);
+}
+
+.profile-card .alert {
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: none;
+} 

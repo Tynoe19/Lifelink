@@ -1,0 +1,28 @@
+.donor-dashboard {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+}
+
+.welcome-section {
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-section h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.welcome-section p {
+    margin: 0.25rem 0 0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.dashboard-content {
+    padding: 1rem;
+} 

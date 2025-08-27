@@ -1,0 +1,17 @@
+m
+mbackend
+mbackend/__pycache__
+mbackend/accounts/__pycache__
+mbackend/accounts/migrations
+mbackend/accounts/migrations/__pycache__
+mbackend/activity/migrations
+mbackend/chat
+mbackend/chat/migrations
+rbackend/donations/migrations
+mbackend/notifications
+mbackend/notifications/migrations
+mfrontend/src
+mfrontend/src/components/Dashboard
+mfrontend/src/components/Donations
+mfrontend/src/context
+mfrontend/src/services

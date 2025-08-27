@@ -1,0 +1,25 @@
+syntax: glob
+
+*.vscode
+*.pyc
+__pycache__/
+env/
+virtual_env/
+
+node_modules/
+dist/
+build/
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.DS_Store
+Thumbs.db
+
+.vite/
+*.local

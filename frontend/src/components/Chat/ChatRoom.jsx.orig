@@ -1,0 +1,162 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { Card, Form, Button, ListGroup, Badge, Spinner, Alert } from 'react-bootstrap';
+import axios from 'axios';
+import { format } from 'date-fns';
+
+const ChatRoom = ({ chatRoomId }) => {
+    const [messages, setMessages] = useState([]);
+    const [newMessage, setNewMessage] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [chatRoom, setChatRoom] = useState(null);
+    const [ws, setWs] = useState(null);
+    const messagesEndRef = useRef(null);
+
+    useEffect(() => {
+        fetchChatRoom();
+        fetchMessages();
+        setupWebSocket();
+        
+        return () => {
+            if (ws) {
+                ws.close();
+            }
+        };
+    }, [chatRoomId]);
+
+    const setupWebSocket = () => {
+        const socket = new WebSocket(`ws://${window.location.host}/ws/chat/${chatRoomId}/`);
+        
+        socket.onmessage = (e) => {
+            const data = JSON.parse(e.data);
+            setMessages(prev => [...prev, data]);
+        };
+
+        socket.onerror = (e) => {
+            setError('WebSocket connection error');
+        };
+
+        setWs(socket);
+    };
+
+    const fetchChatRoom = async () => {
+        try {
+            const response = await axios.get(`/api/chat/rooms/${chatRoomId}/`);
+            setChatRoom(response.data);
+        } catch (err) {
+            setError('Failed to load chat room details');
+        }
+    };
+
+    const fetchMessages = async () => {
+        try {
+            const response = await axios.get(`/api/chat/rooms/${chatRoomId}/messages/`);
+            setMessages(response.data);
+            setLoading(false);
+        } catch (err) {
+            setError('Failed to load messages');
+            setLoading(false);
+        }
+    };
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
+
+    const handleSendMessage = async (e) => {
+        e.preventDefault();
+        if (!newMessage.trim()) return;
+
+        try {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({
+                    type: 'chat_message',
+                    message: newMessage
+                }));
+            } else {
+                const response = await axios.post(`/api/chat/rooms/${chatRoomId}/messages/`, {
+                    content: newMessage
+                });
+                setMessages(prev => [...prev, response.data]);
+            }
+            setNewMessage('');
+        } catch (err) {
+            setError('Failed to send message');
+        }
+    };
+
+    if (loading) {
+        return (
+            <div className="text-center mt-4">
+                <Spinner animation="border" />
+            </div>
+        );
+    }
+
+    if (error) {
+        return <Alert variant="danger">{error}</Alert>;
+    }
+
+    return (
+        <Card>
+            <Card.Header className="d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 className="mb-0">
+                        {chatRoom?.organ?.organ_name} - {chatRoom?.donor?.fullname}
+                    </h5>
+                    <small className="text-muted">
+                        Blood Type: {chatRoom?.organ?.blood_type}
+                    </small>
+                </div>
+                <div>
+                    <Badge bg={ws?.readyState === WebSocket.OPEN ? "success" : "danger"}>
+                        {ws?.readyState === WebSocket.OPEN ? "Connected" : "Disconnected"}
+                    </Badge>
+                </div>
+            </Card.Header>
+            <Card.Body className="chat-messages" style={{ height: '60vh', overflowY: 'auto' }}>
+                {messages.map((message) => (
+                    <div
+                        key={message.id}
+                        className={`message ${message.sender === 'recipient' ? 'recipient' : 'donor'}`}
+                    >
+                        <div className="message-content">
+                            <p>{message.content}</p>
+                            <small className="text-muted">
+                                {format(new Date(message.timestamp), 'MMM d, h:mm a')}
+                            </small>
+                        </div>
+                    </div>
+                ))}
+                <div ref={messagesEndRef} />
+            </Card.Body>
+            <Card.Footer>
+                <Form onSubmit={handleSendMessage}>
+                    <div className="d-flex">
+                        <Form.Control
+                            type="text"
+                            value={newMessage}
+                            onChange={(e) => setNewMessage(e.target.value)}
+                            placeholder="Type your message..."
+                            className="me-2"
+                            disabled={ws?.readyState !== WebSocket.OPEN}
+                        />
+                        <Button 
+                            type="submit" 
+                            variant="primary"
+                            disabled={ws?.readyState !== WebSocket.OPEN}
+                        >
+                            Send
+                        </Button>
+                    </div>
+                </Form>
+            </Card.Footer>
+        </Card>
+    );
+};
+
+export default ChatRoom; 
