@@ -33,7 +33,9 @@ services:
         value: "true"
       - key: CSRF_COOKIE_SECURE
         value: "true"
-    postDeployCommand: python manage.py migrate --noinput && python manage.py collectstatic --noinput
+    postDeploy:
+      - python manage.py migrate --noinput
+      - python manage.py collectstatic --noinput
   - type: redis
     name: organ-donation-redis
     ipAllowList: []
